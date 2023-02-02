@@ -5,9 +5,11 @@ import {useDispatch, useSelector} from "react-redux"
 import { getBooks, deleteBook } from '../../store/bookSlice';
 import './book.css';
 import { toast } from 'react-toastify';
+import { getSelectedData } from '../../store/bookSlice';
+
 
 const PostContainer = () => {
-  const {isLoading, books, isError}= useSelector((state)=> state.books)
+  const {isLoading, books, isError, selectedBookInfo}= useSelector((state)=> state.books)
   const {isLoggedIn} = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
@@ -22,10 +24,10 @@ const PostContainer = () => {
       <div className='row'>
      
         <div className='col'>
-          <BooksList deleteBook={deleteBook} dispatch={dispatch} isLoggedIn={isLoggedIn} isLoading={isLoading} books={books} isError={isError} />
+          <BooksList getSelectedData={getSelectedData} deleteBook={deleteBook} dispatch={dispatch} isLoggedIn={isLoggedIn} isLoading={isLoading} books={books} isError={isError} />
         </div>
         <div className='col side-line'>
-          <BookInfo />
+          <BookInfo getSelectedData={getSelectedData} selectedBookInfo={selectedBookInfo} />
         </div>
       </div>
     </Fragment>
