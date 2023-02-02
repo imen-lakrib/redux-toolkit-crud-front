@@ -2,12 +2,13 @@ import React, { Fragment, useEffect } from 'react';
 import BookInfo from './BookInfo';
 import BooksList from './BooksList';
 import {useDispatch, useSelector} from "react-redux"
-import { getBooks } from '../../store/bookSlice';
+import { getBooks, deleteBook } from '../../store/bookSlice';
 import './book.css';
 import { toast } from 'react-toastify';
 
 const PostContainer = () => {
   const {isLoading, books, isError}= useSelector((state)=> state.books)
+  const {isLoggedIn} = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
   useEffect(()=>{
@@ -21,7 +22,7 @@ const PostContainer = () => {
       <div className='row'>
      
         <div className='col'>
-          <BooksList isLoading={isLoading} books={books} isError={isError} />
+          <BooksList deleteBook={deleteBook} dispatch={dispatch} isLoggedIn={isLoggedIn} isLoading={isLoading} books={books} isError={isError} />
         </div>
         <div className='col side-line'>
           <BookInfo />

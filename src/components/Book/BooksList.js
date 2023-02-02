@@ -1,7 +1,14 @@
 import React from 'react';
-
-const BooksList = ({isLoading, books, isError}) => {
+import { deleteBook } from '../../store/bookSlice';
+const BooksList = ({isLoading, books, isError, isLoggedIn, dispatch}) => {
   console.log(`in booklist ${isLoading}`)
+
+    //delete handler
+    const deleteBookHandler = (id) => {
+      dispatch(deleteBook(id))
+        
+    };
+  
   return (
     <div>
       <h2>Books List</h2>
@@ -12,10 +19,10 @@ const BooksList = ({isLoading, books, isError}) => {
             <li key={book.id} className='list-group-item d-flex  justify-content-between align-items-center'>
         <div>{book.title}</div>
         <div className='btn-group' role='group'>
-          <button type='button' className='btn btn-primary'>
+          <button type='button' className='btn btn-primary' disabled={!isLoggedIn}>
             Read
           </button>
-          <button type='button' className='btn btn-danger'>
+          <button  onClick={() => deleteBookHandler(book)} type='button' className='btn btn-danger' disabled={!isLoggedIn}>
             Delete
           </button>
         </div>
